@@ -1,6 +1,7 @@
 package org.intensive;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class WordWrap {
     private final int length;
@@ -11,12 +12,8 @@ public class WordWrap {
         this.content = content;
     }
 
-    private Boolean isLongWord(String word) {
-        return word.length() > this.length;
-    }
-
     public void wrap () {
-        ArrayList<String> words = new ArrayList<>(java.util.Arrays.asList(content.split(" ")));
+        ArrayList<String> words = new ArrayList<>(Arrays.asList(content.split(" ")));
 
         for (String word : words) {
             if (isLongWord(word)) {
@@ -24,7 +21,11 @@ public class WordWrap {
             }
         }
 
-        String splittedContent = String.join("\n", words);
-        System.out.println(splittedContent);
+        String splitContent = String.join("\n", words);
+        System.out.println(splitContent);
+    }
+
+    private boolean isLongWord (String word) {
+        return word.length() > this.length;
     }
 }
