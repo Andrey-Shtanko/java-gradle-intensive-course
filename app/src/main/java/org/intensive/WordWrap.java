@@ -1,7 +1,7 @@
 package org.intensive;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class WordWrap {
     private final int length;
@@ -13,7 +13,7 @@ public class WordWrap {
     }
 
     public void wrap () {
-        ArrayList<String> words = new ArrayList<>(Arrays.asList(content.split(" ")));
+        List<String> words = Arrays.asList(content.split(" "));
 
         for (String word : words) {
             if (isLongWord(word)) {
