@@ -1,4 +1,3 @@
 rootProject.name = 'java-gradle-intensive-course'
 
-include 'app:src:main'
 include 'app'
