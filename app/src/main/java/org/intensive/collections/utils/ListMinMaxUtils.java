@@ -28,12 +28,14 @@ public class ListMinMaxUtils {
         if (elements.isEmpty()) {
             return Optional.empty();
         }
+
         Optional<T> max = Optional.empty();
         for (T element : elements) {
             if (max.isEmpty() || comparator.compare(element, max.get()) > 0) {
                 max = Optional.of(element);
             }
         }
+
         return max;
     }
 }

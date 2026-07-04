@@ -20,6 +20,7 @@ public class ListGenerateUtils {
         for (int i = 0; i < count; i++) {
             elements.add(valueFactory.get());
         }
+
         return elements;
     }
 }

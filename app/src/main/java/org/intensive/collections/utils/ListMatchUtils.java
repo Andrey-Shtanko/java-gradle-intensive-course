@@ -1,6 +1,5 @@
 package org.intensive.collections.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -14,14 +13,13 @@ public class ListMatchUtils {
             return false;
         }
 
-        List<Integer> result = new ArrayList<>();
         for (T element : elements) {
-            if (predicate.test(element)) {
-                result.add(1);
+            if (!predicate.test(element)) {
+                return false;
             }
         }
 
-        return result.size() == elements.size();
+        return true;
     }
 
     public static <T> boolean anyMatch(List<T> elements, Predicate<T> predicate) {
@@ -43,13 +41,12 @@ public class ListMatchUtils {
             return false;
         }
 
-        List<Integer> result = new ArrayList<>();
         for (T element : elements) {
             if (predicate.test(element)) {
-                result.add(1);
+                return false;
             }
         }
 
-        return result.isEmpty();
+        return true;
     }
 }

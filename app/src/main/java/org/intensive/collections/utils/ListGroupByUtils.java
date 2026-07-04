@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-
-
 public class ListGroupByUtils {
 
     private ListGroupByUtils() {
@@ -23,7 +21,8 @@ public class ListGroupByUtils {
         for (T element : elements) {
             K key = keyExtractor.apply(element);
 
-        result.computeIfAbsent(key, k -> new ArrayList<>()).add(element);}
+            result.computeIfAbsent(key, k -> new ArrayList<>()).add(element);
+        }
 
         return result;
     }
