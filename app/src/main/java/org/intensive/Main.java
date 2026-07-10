@@ -113,11 +113,7 @@ public class Main {
         });
 
         Flyway flyway = Flyway.configure()
-                .dataSource(
-                        "jdbc:postgresql://localhost:5432/student_db",
-                        "postgres",
-                        "postgres"
-                )
+                .dataSource(dataSource)
                 .load();
 
         flyway.migrate();
