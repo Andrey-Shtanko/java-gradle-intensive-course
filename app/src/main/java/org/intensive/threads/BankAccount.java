@@ -58,7 +58,7 @@ public class BankAccount  {
                     transferSuccess = true;
                 } else {
                     System.out.println(Thread.currentThread().getName() + " Destination account is busy. Trying to refund money...");
-                    boolean refundSuccess = false;
+                     boolean refundSuccess = false;
                     while (!refundSuccess) {
                         if (deposit(amount)) {
                             refundSuccess = true;
@@ -69,7 +69,7 @@ public class BankAccount  {
 
                 }
             }else {
-                System.out.println(Thread.currentThread().getName() + " Destination account is busy. Trying to refund money...");
+                System.out.println(Thread.currentThread().getName() + " Destination account is busy.");
                 Thread.sleep(100);
             }
         }
