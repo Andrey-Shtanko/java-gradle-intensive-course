@@ -20,7 +20,7 @@ public class BankAccount  {
         System.out.println("Account: " + accountNumber + ", Holder: " + accountHolder + ", Balance: " + balance);
     }
 
-    private boolean deposit(double amount) {
+    private boolean deposit(double amount) throws InterruptedException {
         if (lock.tryLock()) {
             try {
                 balance += amount;
@@ -34,7 +34,7 @@ public class BankAccount  {
         }
     }
 
-    private boolean withdraw(double amount) {
+    private boolean withdraw(double amount) throws InterruptedException {
         if (lock.tryLock()) {
             try {
                 balance -= amount;
@@ -63,14 +63,14 @@ public class BankAccount  {
                         if (deposit(amount)) {
                             refundSuccess = true;
                         } else {
-                            Thread.sleep(100);
+                            Thread.sleep(Math.toIntExact(Math.round(Math.random() * 10)));
                         }
                     }
 
                 }
             }else {
                 System.out.println(Thread.currentThread().getName() + " Destination account is busy.");
-                Thread.sleep(100);
+                Thread.sleep(Math.toIntExact(Math.round(Math.random() * 10)));
             }
         }
         System.out.println(Thread.currentThread().getName() + ": Transfer successful");
