@@ -16,6 +16,9 @@ public class Transfer implements Runnable {
         System.out.println("Begin " + Thread.currentThread().getName());
         try {
             from.transfer(to, amount);
+
+            to.viewBalance();
+            from.viewBalance();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

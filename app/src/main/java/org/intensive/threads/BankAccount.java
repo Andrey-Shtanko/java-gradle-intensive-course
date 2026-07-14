@@ -20,68 +20,47 @@ public class BankAccount  {
         System.out.println("Account: " + accountNumber + ", Holder: " + accountHolder + ", Balance: " + balance);
     }
 
-    private boolean deposit(double amount) throws InterruptedException {
-        if (lock.tryLock()) {
-            try {
-                Thread.sleep(1000);
-
-                balance += amount;
-                return true;
-            } finally {
-                System.out.println(Thread.currentThread().getName() + ": deposited " + amount);
-                lock.unlock();
-            }
-        }else {
-            return false;
-        }
+    private void deposit(double amount) throws InterruptedException {
+        Thread.sleep(1000);
+        balance += amount;
+        System.out.println(Thread.currentThread().getName() + ": deposited " + amount);
     }
 
-    private boolean withdraw(double amount) throws InterruptedException {
-        if (lock.tryLock()) {
-            try {
-                Thread.sleep(1000);
-                balance -= amount;
-                return true;
-            } finally {
-                System.out.println(Thread.currentThread().getName() + ": withdrew " + amount);
-                lock.unlock();
-            }
-        }else {
-            return false;
-        }
+    private void withdraw(double amount) throws InterruptedException {
+        Thread.sleep(1000);
+        balance -= amount;
+        System.out.println(Thread.currentThread().getName() + ": withdrew " + amount);
     }
 
     public void transfer (BankAccount to, double amount) throws InterruptedException {
         BankAccount firstLock;
+        BankAccount secondLock;
+        boolean transferSuccess = false;
 
         if (this.accountNumber.compareTo(to.accountNumber) < 0) {
             firstLock = this;
-        }else {
+            secondLock = to;
+        } else {
             firstLock = to;
+            secondLock = this;
         }
 
-        boolean transferSuccess = false;
-
         while (!transferSuccess) {
-            if (firstLock.withdraw(amount)) {
-                if (to.deposit(amount)) {
-                    System.out.println(Thread.currentThread().getName() + ": transfer " + amount);
-                    transferSuccess = true;
-                } else {
-                    System.out.println(Thread.currentThread().getName() + " Destination account is busy.");
-                     boolean refundSuccess = false;
-                    while (!refundSuccess) {
-                        if (firstLock.deposit(amount)) {
-                            refundSuccess = true;
-                        } else {
-                            Thread.sleep(Math.toIntExact(Math.round(Math.random() * 1000)));
+            if (firstLock.lock.tryLock()) {
+                try {
+                    if (secondLock.lock.tryLock()) {
+                        try {
+                            withdraw(amount);
+                            to.deposit(amount);
+                            System.out.println(Thread.currentThread().getName() + ": transferred " + amount);
+                            transferSuccess = true;
+                        } finally {
+                            secondLock.lock.unlock();
                         }
                     }
-
+                } finally {
+                    firstLock.lock.unlock();
                 }
-            }else {
-                System.out.println(Thread.currentThread().getName() + " Destination account is busy.");
-                Thread.sleep(Math.toIntExact(Math.round(Math.random() * 1000)));
             }
         }
         System.out.println(Thread.currentThread().getName() + ": Transfer successful");

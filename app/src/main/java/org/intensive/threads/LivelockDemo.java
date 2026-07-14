@@ -44,6 +44,8 @@ public class LivelockDemo {
         t1.join();
         t2.join();
 
+        System.out.println("Final balances:");
+
         // Unreachable while livelocked:
         accountA.viewBalance();
         accountB.viewBalance();
