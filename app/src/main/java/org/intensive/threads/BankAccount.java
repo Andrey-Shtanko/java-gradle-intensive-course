@@ -66,4 +66,3 @@ public class BankAccount  {
         System.out.println(Thread.currentThread().getName() + ": Transfer successful");
     }
 }
-
