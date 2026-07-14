@@ -60,7 +60,6 @@ public class BankAccount  {
             firstLock = to;
         }
 
-
         boolean transferSuccess = false;
 
         while (!transferSuccess) {
