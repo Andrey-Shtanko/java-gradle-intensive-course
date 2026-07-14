@@ -53,14 +53,11 @@ public class BankAccount  {
 
     public void transfer (BankAccount to, double amount) throws InterruptedException {
         BankAccount firstLock;
-        BankAccount secondLock;
 
         if (this.accountNumber.compareTo(to.accountNumber) < 0) {
             firstLock = this;
-            secondLock = to;
         }else {
             firstLock = to;
-            secondLock = this;
         }
 
 
