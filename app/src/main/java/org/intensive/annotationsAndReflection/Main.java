@@ -20,9 +20,10 @@ public class Main {
             }
             if (method.isAnnotationPresent(Invocations.class)) {
                 Invocations invocations = method.getAnnotation(Invocations.class);
+                Object instance = area.getDeclaredConstructor().newInstance();
                 for (int i = 0; i < invocations.value(); i++) {
                     method.setAccessible(true);
-                    method.invoke(area.getDeclaredConstructor().newInstance(), 1);
+                    method.invoke(instance,1);
                 }
                 System.out.println("Method " + method.getName() + " has been invoked by " + invocations.value() + " times");
             }
