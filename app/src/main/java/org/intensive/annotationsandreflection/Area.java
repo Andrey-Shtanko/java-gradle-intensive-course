@@ -1,40 +1,38 @@
 package org.intensive.annotationsandreflection;
 
-import java.util.Scanner;
+public interface Area {
 
-public class Area {
-    public static double areaOfSquare (int side) {
-        double result = side * side;
-        System.out.println("The area of the square is: " + result);
-        return result;
+    default int areaOfSquare() {
+        int sideLength = ScanUtils.scanValue();
+        return areaOfSquare(sideLength);
+    }
+
+    int areaOfSquare(Integer sideLength);
+
+    @TraceArgs
+    default double areaOfCircle() {
+        int radius = ScanUtils.scanValue();
+        return areaOfCircle(radius);
     }
 
     @TraceArgs
-    private double areaOfCircle (int side) {
-        double result = side * side * Math.PI;
-        System.out.println("The area of the circle is: " + result);
-        return result;
-    }
+    double areaOfCircle(Integer radius);
+
     @Invocations(5)
-    protected double areaOfTriangle (int side) {
-        double result = (Math.sqrt(3) / 4) * side * side;
-        System.out.println("The area of the triangle is: " + (Math.sqrt(3) / 4) * side * side);
-        return result;
+    default double areaOfTriangle() {
+        int sideLength = ScanUtils.scanValue();
+        return areaOfTriangle(sideLength);
+    }
+
+    @Invocations(5)
+    double areaOfTriangle(Integer sideLength);
+
+    @MeasureTime
+    default double calculateArea() {
+        int value = ScanUtils.scanValue();
+        return calculateArea(value);
     }
 
     @MeasureTime
-    public double calculateArea (int number) {
-        double result;
-
-        if (number % 2 == 0) {
-            result = areaOfSquare(number);
-        }
-        else if (number % 3 == 0) {
-            result = areaOfCircle(number);
-        }
-        else {
-            result = areaOfTriangle(number);
-        }
-        return result;
-    }
+    double calculateArea(Integer value);
 }
