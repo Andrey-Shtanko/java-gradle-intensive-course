@@ -4,14 +4,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
 
 import static java.time.LocalTime.now;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Class<?> area = Class.forName("org.intensive.annotationsAndReflection.Area");
+        Class<?> area = Class.forName("org.intensive.annotationsandreflection.Area");
 
         Method[] methods = area.getDeclaredMethods();
         for (Method method : methods) {
