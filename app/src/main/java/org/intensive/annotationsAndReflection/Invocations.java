@@ -1,4 +1,4 @@
-package org.intensive.annotationsAndReflection;
+package org.intensive.annotationsandreflection;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -1,4 +1,4 @@
-package org.intensive.annotationsAndReflection;
+package org.intensive.annotationsandreflection;
 
 import java.util.Scanner;
 
